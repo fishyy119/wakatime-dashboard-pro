@@ -5,6 +5,8 @@ on:
   push:
     branches: 
       - source
+  
+  workflow_dispatch: # 允许手动触发工作流
 
 env:
   TZ: Asia/Shanghai
@@ -22,7 +24,7 @@ jobs:
       # 设置 node.js 环境
       uses: actions/setup-node@v1
       with:
-        node-version: '16.x'
+        node-version: '16'
 
     - name: Cache node modules
       # 设置包缓存目录，避免每次下载
@@ -40,21 +42,17 @@ jobs:
     - name: Generate files
       # 编译 项目 文件，BASE_DOMAIN是你个人域名的构建基础路径，如果没有，可去掉--base参数
       run: |
-        vite build --base=${{ secrets.BASE_DOMAIN }}
+        vite build
 
     - name: Deploy WakaTime Dashboard
       env: 
         # Github 仓库
-        GITHUB_REPO: github.com/fangge/wakatime-dashboard-pro
+        GITHUB_REPO: github.com/fishyy119/wakatime-dashboard-pro
       # 将编译后的博客文件推送到指定仓库
       run: |
         cd ./dist && git init && git add .
-        git config user.name "mrfangge"
-        git config user.email "fangge-sun@163.com"
+        git config user.name "fishyy119"
+        git config user.email "fishyy119@foxmail.com"
         git add .
         git commit -m "GitHub Actions Auto Builder at $(date +'%Y-%m-%d %H:%M:%S')"
         git push --force --quiet "https://${{ secrets.ACCESS_TOKEN }}@$GITHUB_REPO" master:master
-
-
-
-        
