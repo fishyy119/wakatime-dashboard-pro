@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import 'antd/dist/antd.css';
-import './App.scss';
-import {
-  Layout,
-  Select,
-  DatePicker,
-  Space,
-  Input,
-  message,
-  Row,
-  Col
-} from 'antd';
-import { GithubOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import Axios from 'axios';
-import { getLastData } from '@/utils/utils';
 import Column from '@/chart/column';
-import TreeMap from '@/chart/treemap';
 import Pie from '@/chart/pie';
 import Report from '@/chart/table';
+import TreeMap from '@/chart/treemap';
+import { getLastData } from '@/utils/utils';
+import { GithubOutlined } from '@ant-design/icons';
+import {
+  Col,
+  DatePicker,
+  Input,
+  Layout,
+  message,
+  Row,
+  Select,
+  Space
+} from 'antd';
+import 'antd/dist/antd.css';
+import Axios from 'axios';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import './App.scss';
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -59,7 +59,7 @@ function App() {
   useEffect(() => {
     fetchSummariesData();
     if (localStorage.getItem('gistId')) {
-      setgistId(localStorage.getItem('gistId'));
+      setgistId(localStorage.getItem('gistId') as string);
     } else {
       message.info('Please Enter Yout GistId');
     }

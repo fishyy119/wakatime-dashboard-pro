@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
+// import reactRefresh from '@vitejs/plugin-react-refresh';
 import path from 'path';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,5 +14,9 @@ export default defineConfig({
   server: {
     port: 1024,
   },
-  plugins: [reactRefresh()],
+  plugins: [react()],
+  build: {
+    minify: false, // 禁用压缩
+  },
+  base: './',
 });
